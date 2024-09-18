@@ -1,0 +1,33 @@
+pipe line {
+ agent { lable 'jenkins-agent' }
+toos {
+  jdk 'java17'
+   maven 'maven3'
+}
+stages {
+stages("Cleanup workspace"){
+steps{
+cleanWs()
+     }
+  }
+stage("Checkout from SCM"){
+steps{
+git branch: 'main' credentialsID: 'github',url: 'https://github.com/pranesh98/getting-started-app'
+}
+}
+ stages {
+        stage('Build Aplication') { 
+            steps {
+            sh "mvn clean package"
+            }
+        }
+        stage('Test Application') { 
+            steps {
+                sh "mvn test"
+            }
+        }
+       
+
+
+ }
+}
